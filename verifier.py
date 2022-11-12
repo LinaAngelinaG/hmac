@@ -6,7 +6,7 @@ import generator
 
 def verify(filename):
     text = open(filename, "r").readline()
-    file_parameters = filename.split('_')
+    file_parameters = str(filename).split('_')
     return check_file(file_parameters, text[:7], len(text))
 
 
@@ -15,7 +15,6 @@ def check_file(params, text, text_len):
     min_len = ((int(text[4]) * 8) * 2 + 8 + 1 + 64 + 3)*8
     gen = generator.Generator
     result = match
-    print(text[5:7])
     if int(gen.enc_func_id.get(params[1])) == int(text[5:7], base=2):
         if int(gen.hash_func_id.get(params[0])) == int(text[3:5], base=2):
             if min_len <= text_len:
@@ -31,7 +30,7 @@ def check_file(params, text, text_len):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('filename',
+    parser.add_argument('-f', '--filename',
                         type=pathlib.Path,
                         action='store',
                         help='file with encrypted text')

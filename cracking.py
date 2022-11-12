@@ -30,8 +30,9 @@ from generator import Generator
 #                   incr_pass / (current - start), " c/s...")
 
 
-def crack(filename):
+def crack(args):
     try:
+        filename = args.filename
         file = open("input.txt", "r")
         text = file.readline()
         if verify(filename):
@@ -41,13 +42,12 @@ def crack(filename):
             incr_pass = 0
             start = time.time()
             while not ct_val.__eq__(ct_count):
-                if incr_pass % 54240 == 0:
+                if incr_pass % 54240 == 0 and args.verbose:
                     print_speed(time.time(), start, gen.password, incr_pass)
                 key = gen.hmac()
                 ct_count = gen.enc(key, text).hex()
                 gen.password = incr_p(gen.password, 1)
                 incr_pass += 1
-            print(ct_val, ct_count)
             if ct_val.__eq__(ct_count):
                 current = time.time()
                 print("Found password!", incr_p(gen.password, -1), " | Speed: ",
@@ -140,7 +140,7 @@ if __name__ == '__main__':
     parser.add_argument('-v', '--verbose',
                         action='store_true',
                         help='run with logs')
-    parser.add_argument('filename',
+    parser.add_argument('-f', '--filename',
                         type=pathlib.Path,
                         action='store',
                         help='file with info')

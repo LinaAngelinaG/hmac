@@ -111,7 +111,6 @@ class Generator:
         res = self.enc(key, text)
         final_len = len(res)*8
         res_bin = bin(int(res.hex(), base=16))[2:].zfill(final_len)
-        print(int(res_bin, base=2).to_bytes(len(res_bin)//8, 'big', signed=False).hex())
         output.write(res_bin)
         output.close()
 
