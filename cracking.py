@@ -9,27 +9,6 @@ from verifier import verify
 from generator import Generator
 
 
-# def crack(args):
-#     filename = args.filename
-#     if verify(filename):
-#         ct_val, gen = parse_file(filename)
-#         print("Start cracking ::")
-#         ct_count = bytes()
-#         incr_pass = 0
-#         start = time.time()
-#         while ct_val != ct_count.decode():
-#             if incr_pass % 32 == 0 & args.verbose:
-#                 current = time.time()
-#                 print_speed(time.time(), start, gen.password, incr_pass)
-#             ct_count = gen.generate()
-#             gen.password = incr_p(gen.password, 1)
-#             incr_pass += 1
-#         if ct_val == ct_count.decode():
-#             current = time.time()
-#             print("Found password!", incr_pass(gen.password, -1), " | Speed: ",
-#                   incr_pass / (current - start), " c/s...")
-
-
 def crack(args):
     try:
         filename = args.filename
