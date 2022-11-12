@@ -12,9 +12,14 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    gen = Generator("0a0b0cff", "md5", "aes128")
+    gen = Generator("000004ff", "md5", "aes128")
+    print(gen.iv.decode(), '   and   ', gen.nonce.decode())
+    # print(bytearray.fromhex("000004ff"))
     gen.generate()
-    verifier.verify("md5_3des_0a0b0cff.enc")
-    verifier.verify("md5_aes128_0a0b0cff.enc")
-    cracking.crack("md5_aes128_0a0b0cff.enc")
+    # print("True" if verifier.verify("md5_3des_0a0b0cff.enc")
+    #       else "False")
+    print("True" if verifier.verify("md5_aes128_000004ff.enc")
+          else "False")
+
+    cracking.crack("md5_aes128_000004ff.enc")
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

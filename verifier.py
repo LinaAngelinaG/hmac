@@ -1,12 +1,39 @@
+import argparse
+import pathlib
 import re
+import generator
 
 
 def verify(filename):
     text = open(filename, "r").readline()
-    min_length = int(text[4])*8 + 8 + 1 + 64
-    max_length = min_length + 4095
-    print(min_length, len(text[5:]), text[4])
+    file_parameters = filename.split('_')
+    return check_file(file_parameters, text[:7], len(text))
 
-    match = re.fullmatch('ENC[0-1]{1}[0-3]{1}[a-f0-9]{' + str(min_length) +"," + str(max_length) + "}"  , text)
-    print("True" if match else "False")
-    return match
+
+def check_file(params, text, text_len):
+    match = re.fullmatch('ENC0[0-1]{1}[0-1]{1}[0-1]{1}', text)
+    min_len = ((int(text[4]) * 8) * 2 + 8 + 1 + 64 + 3)*8
+    gen = generator.Generator
+    result = match
+    print(text[5:7])
+    if int(gen.enc_func_id.get(params[1])) == int(text[5:7], base=2):
+        if int(gen.hash_func_id.get(params[0])) == int(text[3:5], base=2):
+            if min_len <= text_len:
+                result = match
+            else:
+                result = False
+        else:
+            result = False
+    else:
+        result = False
+    return result
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('filename',
+                        type=pathlib.Path,
+                        action='store',
+                        help='file with encrypted text')
+    res = verify(parser.parse_args().filename)
+    print("True" if res else "False")
