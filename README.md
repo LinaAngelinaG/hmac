@@ -39,10 +39,15 @@
     
       
     HMAC:  md5   aes256
+     
     NONCE:  b'VdOlsJnJkrvEqVRabPkhNpaBBdNmRplQqwSMPFhoYhonjXWiAIHWayCVLZndwZOy'
+     
     IV:  b'vAgZnoIKUILGEOQM'
+     
     CT:  ebdb91249b6baa648a820b0914521bb43f68d8093010b4a3dabb2f3449da877b
+     
     Start cracking ::
+     
          Current:  bytearray(b'\x00\x00\x00\x00')  -  b'\x00\x00\xd3\xe0'  | Speed:  0.0  c/s... 
          Current:  b'\x00\x00\xd3\xe0'  -  b'\x00\x01\xa7\xc0'  | Speed:  40396.18774877053  c/s... 
          Current:  b'\x00\x01\xa7\xc0'  -  b'\x00\x02{\xa0'  | Speed:  40290.98339986834  c/s... 
